@@ -6,7 +6,6 @@ function printFileContents(filePath) {
     console.error("Error: No file path provided.");
     process.exit(1);
   }
-
   // Read the file contents
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
@@ -17,7 +16,6 @@ function printFileContents(filePath) {
       }
       process.exit(1);
     } else {
-      // Check if the file content matches the expected output
       if (data.trim() === "The Sum of Value is 29") {
         console.log(data.trim());
       } else {
@@ -26,7 +24,5 @@ function printFileContents(filePath) {
     }
   });
 }
-
-// Get the file path from the command-line arguments and call printFileContents
 const filePath = process.argv[2];
 printFileContents(filePath);
