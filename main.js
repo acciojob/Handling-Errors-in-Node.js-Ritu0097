@@ -6,7 +6,6 @@ function printFileContents(filePath) {
     console.error("Error: No file path provided.");
     process.exit(1);
   }
-  // Read the file contents
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
       if (err.code === 'ENOENT') {
