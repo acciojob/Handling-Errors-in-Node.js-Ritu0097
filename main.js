@@ -1,27 +1,37 @@
-const fs = require('fs');
-
-function printFileContents(filePath) {
-  // Check if the file path is provided
-  if (!filePath) {
-    console.error("Error: No file path provided.");
-    process.exit(1);
-  }
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      if (err.code === 'ENOENT') {
-        console.error("Column '${columnName}' not found in the CSV.");
-      } else {
-        console.error(`Error reading file: ${err.message}`);
-      }
-      process.exit(1);
-    } else {
-      if (data.trim() === "The Sum of Value is 29") {
-        console.log(data.trim());
-      } else {
-        console.error("Error: Unexpected file content.");
-      }
+const fs = require("fs");
+ 
+function readAndParseJSON(filePath) {
+  try {
+    const jsonData = fs.readFileSync(filePath, "utf8");
+    const parsedData = JSON.parse(jsonData);
+ 
+    if (
+      typeof parsedData.name === "undefined" ||
+      typeof parsedData.age === "undefined"
+    ) {
+      console.log("Missing required data in the JSON file.");
+      return;
     }
-  });
+ 
+    console.log(JSON.stringify(parsedData));
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      console.log(
+        "Invalid JSON file format. Please provide a valid JSON file."
+      );
+    } else {
+      console.log(`Error reading the file: ${error.message}`);
+    }
+  }
 }
-const filePath = process.argv[2];
-printFileContents(filePath);
+ 
+if (require.main === module) {
+  const filePath = process.argv[2];
+  if (!filePath) {
+    console.log("Please provide a JSON file path.");
+    return;
+  }
+  readAndParseJSON(filePath);
+}
+ 
+module.exports = { readAndParseJSON };
