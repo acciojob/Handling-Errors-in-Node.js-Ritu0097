@@ -12,6 +12,7 @@ function readAndParseJSON(filePath) {
       console.log("Missing required data in the JSON file.");
       return;
     }
+ 
     console.log(JSON.stringify(parsedData));
   } catch (error) {
     if (error instanceof SyntaxError) {
@@ -34,3 +35,4 @@ if (require.main === module) {
 }
  
 module.exports = { readAndParseJSON };
+
